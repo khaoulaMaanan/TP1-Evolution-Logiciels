@@ -25,7 +25,6 @@ import java.util.*;
 
 public class Processor {
     int totalnbreLignesCodeMethode = 0;
-    int totalnbreLignesCodeClasse = 0;
     private final String projectPath;
     private final Parser parser;
     private final TypeDeclarationVisitor typeDeclarationVisitor;
@@ -42,7 +41,6 @@ public class Processor {
         this.typeDeclarationVisitor = new TypeDeclarationVisitor();
         this.methodDeclarationVisitor = new MethodDeclarationVisitor();
         this.packageDeclarationVisitor = new PackageDeclarationVisitor();
-
         this.fileVisitor = new FileVisitor();
         this.methodInvocationVisitor = new MethodInvocationVisitor();
         cu1 = new ArrayList<>();
@@ -54,10 +52,10 @@ public class Processor {
         System.out.println("Nombre de lignes de code de l'application : " + fileVisitor.getNbreLignes());
         System.out.println("Nombre de méthodes de l'application : " + typeDeclarationVisitor.getNbreMethodes());
         System.out.println("Nombre de packages de l'application : " + packageDeclarationVisitor.getNbrePackages());
-        System.out.println("Nombre moyen de méthodes par classe : " + typeDeclarationVisitor.getNbreMethodes() / typeDeclarationVisitor.getNbreClasses());
+        System.out.println("Nombre moyen de méthodes par classe : " + Math.round(typeDeclarationVisitor.getNbreMethodes() / typeDeclarationVisitor.getNbreClasses()));
         countNumberOfMethodLines();
-        System.out.println("Nombre moyen de lignes de code par méthode : " + totalnbreLignesCodeMethode / typeDeclarationVisitor.getNbreMethodes());
-        System.out.println("Nombre moyen d'attributs par classe : " + typeDeclarationVisitor.getNbreAttributs() / typeDeclarationVisitor.getNbreClasses());
+        System.out.println("Nombre moyen de lignes de code par méthode : " + Math.round(totalnbreLignesCodeMethode / typeDeclarationVisitor.getNbreMethodes()));
+        System.out.println("Nombre moyen d'attributs par classe : " + Math.round(typeDeclarationVisitor.getNbreAttributs() / typeDeclarationVisitor.getNbreClasses()));
         System.out.println("Les 10% des classes qui possèdent le plus grand nombre de méthodes : " + getTenPercentClassesWithGreaterNbrOfMethods());
         System.out.println("Les 10% des classes qui possèdent le plus grand nombre d'attributs : " + getTenPercentClassesWithGreaterNbrOfAttributes());
         System.out.println("Les classes qui font partie aux deux catégories précédentes : " + getClassesOfBothCategories());
